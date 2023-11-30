@@ -7,25 +7,39 @@ version:             0.1.0.0
 homepage:            https://github.com/githubuser/aoc2023#readme
 license:             BSD-3-Clause
 license-file:        LICENSE
-author:              Author name here
-maintainer:          example@example.com
-copyright:           2023 Author name here
+author:              Will J
+maintainer:          maintainer@willj.dev
+copyright:           2023 Will J
 category:            Web
 build-type:          Simple
 extra-source-files:  README.md
                      CHANGELOG.md
+data-files:          data/*.txt
+
+common build-opts
+  default-language:   Haskell2010
+  default-extensions: OverloadedStrings, TupleSections, LambdaCase, DataKinds, FlexibleContexts, GADTs, PolyKinds,
+                      RankNTypes, ScopedTypeVariables, TypeApplications, TypeOperators, TypeFamilies
+  ghc-options:        -Wall -Wcompat -Wincomplete-record-updates -Wincomplete-uni-patterns -Wredundant-constraints -O2 -flate-specialise -fspecialise-aggressively
+
+library
+  import:             build-opts
+  hs-source-dirs:     src
+  build-depends:      base, megaparsec, text, parser-combinators, array, polysemy, unordered-containers, recursion-schemes, polysemy-plugin
+  exposed-modules:    Day01
+  other-modules:      Paths_aoc2023, Parsers, InputData
+  ghc-options:        -fplugin=Polysemy.Plugin
 
 executable aoc2023
-  hs-source-dirs:      src
-  main-is:             Main.hs
-  default-language:    Haskell2010
-  build-depends:       base >= 4.7 && < 5
-  ghc-options:         -Wall
-                       -Wcompat
-                       -Widentities
-                       -Wincomplete-record-updates
-                       -Wincomplete-uni-patterns
-                       -Wmissing-export-lists
-                       -Wmissing-home-modules
-                       -Wpartial-fields
-                       -Wredundant-constraints
+  import:             build-opts
+  hs-source-dirs:     app
+  main-is:            Main.hs
+  build-depends:      base, text, aoc2023
+
+test-suite spec
+  import:             build-opts
+  type:               exitcode-stdio-1.0
+  hs-source-dirs:     test
+  main-is:            Spec.hs
+  build-depends:      base, aoc2023, hspec, text, array
+  other-modules:      Day01Spec
