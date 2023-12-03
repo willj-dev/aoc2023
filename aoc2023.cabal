@@ -26,7 +26,7 @@ library
   import:             build-opts
   hs-source-dirs:     src
   build-depends:      base, megaparsec, text, parser-combinators, array, polysemy, unordered-containers, recursion-schemes, polysemy-plugin
-  exposed-modules:    Day01
+  exposed-modules:    Day01, Day02
   other-modules:      Paths_aoc2023, Parsers, InputData
   ghc-options:        -fplugin=Polysemy.Plugin
 
@@ -42,4 +42,4 @@ test-suite spec
   hs-source-dirs:     test
   main-is:            Spec.hs
   build-depends:      base, aoc2023, hspec, text, array
-  other-modules:      Day01Spec
+  other-modules:      Day01Spec, Day02Spec
